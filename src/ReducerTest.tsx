@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback, useEffect, useState } from 'react';
 
 interface CounterState {
     count: number
@@ -29,6 +29,13 @@ export default function ReducerTest() {
     const [state, dispatch] = useReducer(counterReducer, {
         count: 0
     })
+
+    const [toggle, setToggle] = useState(true);
+
+    useEffect(() => {
+        console.log('reducer 상태 변경')
+    }, [state])
+
     return (
         <div>
             <button onClick={useCallback(() => {
@@ -47,8 +54,16 @@ export default function ReducerTest() {
             }, [state])}>
                 -
             </button>
+            <button onClick={useCallback(() => {
+                setToggle(!toggle);
+            }, [toggle])}>
+                toggle
+            </button>            
             <div>
                 {state.count}
+            </div>
+            <div>
+                {toggle === true ? 'true' : 'false'}
             </div>
         </div>
     )
